@@ -5,11 +5,11 @@ const getTasks = (req, res) => {
   try {
     res.json({ data: [...dataStore] })
   } catch (error) {
-    res.status(500).json({ error: 'Ocurrió un error en el servidor' })
+    res.status(500).json({ error: 'An error happened in the server' })
   }
 }
 
-const postTasks = (req, res) => {
+const postTask = (req, res) => {
   try {
     const { title, completed } = req.body
     if (!title || typeof completed !== 'boolean') {
@@ -22,13 +22,13 @@ const postTasks = (req, res) => {
     }
     dataStore.push(newTask)
     currentTaskId++
-    res.json({ data: [...dataStore] })
+    res.json({ message: 'Task created', data: [...dataStore] })
   } catch (error) {
-    res.status(500).json({ error: 'Ocurrió un error en el servidor' })
+    res.status(500).json({ error: 'An error happened in the server' })
   }
 }
 
-const putTasks = (req, res) => {
+const putTask = (req, res) => {
   try {
     const taskIdToUpdate = parseInt(req?.params?.id)
     const { title, completed } = req.body
@@ -49,7 +49,7 @@ const putTasks = (req, res) => {
 
     res.json({ message: 'Task updated', data: [...dataStore] })
   } catch (error) {
-    res.status(500).json({ error: 'Ocurrió un error en el servidor' })
+    res.status(500).json({ error: 'An error happened in the server' })
   }
 }
 
@@ -62,15 +62,15 @@ const deleteTask = (req, res) => {
     }
     const deletedTask = dataStore.splice(taskItemIndex, 1)
     console.log('Deleted task: ' + deletedTask)
-    res.json({ message: 'Task deleted successfuly', data: [...dataStore] })
+    res.json({ message: 'Task deleted successfully', data: [...dataStore] })
   } catch (error) {
-    res.status(500).json({ error: 'Ocurrió un error en el servidor' })
+    res.status(500).json({ error: 'An error happened in the server' })
   }
 }
 
 module.exports = {
   getTasks,
-  postTasks,
-  putTasks,
+  postTask,
+  putTask,
   deleteTask
 }
